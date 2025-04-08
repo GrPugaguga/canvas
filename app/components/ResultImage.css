@@ -1,0 +1,266 @@
+.resultContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.giftImage {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.decorImage {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  z-index: 3;
+}
+
+.drawingCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: all;
+  cursor: crosshair;
+}
+
+.drawingCursor {
+  display: none;
+}
+
+.drawingCanvas::after {
+  display: none;
+}
+
+.drawingCanvas.eraser {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' d='M18.3,5.71L4.7,19.3c-0.39,0.39-1.02,0.39-1.41,0C3.1,19.11 3,18.86 3,18.59v-0.03c0-0.27,0.1-0.52,0.29-0.71L17.59,3.29c0.39-0.39,1.02-0.39,1.41,0C19.9,3.68 19.9,4.32 18.3,5.71z'/%3E%3C/svg%3E"), auto;
+}
+
+.drawingCanvas.eraser::after {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.messageContainer {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px 15px;
+  border-radius: 10px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.movableMessageText {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  cursor: move;
+  user-select: none;
+  text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  padding: 5px;
+  white-space: pre-wrap;
+  max-width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.movableMessageText.selected {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.5);
+  border-radius: 4px;
+  z-index: 6;
+}
+
+.deleteMessageBtn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #f44336;
+  color: white;
+  border: 2px solid white;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.deleteMessageBtn:hover {
+  opacity: 1;
+}
+
+.messageControls {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  padding: 4px 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  gap: 10px;
+  z-index: 6;
+}
+
+.messageColorPicker {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.messageSizeControls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.messageSizeBtn {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: none;
+  background-color: #e0e0e0;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.messageSizeBtn:hover {
+  background-color: #ccc;
+}
+
+.messageSizeValue {
+  font-size: 12px;
+  color: #666;
+  min-width: 30px;
+  text-align: center;
+}
+
+.messageText {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.controlsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.saveButton {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  flex: 1;
+  margin-right: 5px;
+}
+
+.saveButton:hover {
+  background-color: #45a049;
+}
+
+.undoButton {
+  padding: 10px 15px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  flex: 1;
+  margin-left: 5px;
+}
+
+.undoButton:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .imageWrapper {
+    max-width: 100%;
+  }
+  
+  .messageText {
+    font-size: 16px;
+  }
+
+  .messageControls {
+    bottom: -50px;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+  }
+} 
